@@ -22,6 +22,34 @@
       "current_phase": -1,
       "status": "pending",
       "store_id": "H8976001"
+    },
+    "H5550001_S_TRO31721": {
+      "product_name": "Jamieson | 特強長效天然維他命 C (1000 毫克) 100 粒(包裝隨機提供) [平行進口] 免疫力抗老美白皮膚健康 此日期前最佳:2029年03月31日",
+      "phases": [
+        {
+          "label": "🟢 波波圖",
+          "photo_url": "https://lh3.googleusercontent.com/d/1AKzTp6RsIL-nB97XQCCzwoOMMlVRRY2s",
+          "time": "2026-08-20T15:55:00"
+        },
+        {
+          "label": "🟠 85折後波波圖",
+          "photo_url": "",
+          "time": "2026-08-21T23:55:00"
+        },
+        {
+          "label": "🟢 波波圖",
+          "photo_url": "https://lh3.googleusercontent.com/d/1AKzTp6RsIL-nB97XQCCzwoOMMlVRRY2s",
+          "time": "2026-08-23T22:25:00"
+        },
+        {
+          "label": "🔵 原圖",
+          "photo_url": "https://lh3.googleusercontent.com/d/1IhxI8Q8BOi5Rcp3tNysBbxM7z4VEDS4H",
+          "time": "2026-08-27T23:55:00"
+        }
+      ],
+      "current_phase": -1,
+      "status": "pending",
+      "store_id": "H5550001"
     }
   },
   "last_updated": ""
