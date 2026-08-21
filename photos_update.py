@@ -127,6 +127,49 @@ class MMSUpdater:
         print(f'    URL: {self.page.url}')
         print('  ✅ Logged in')
 
+    def _find_edit_url(self, store_id):
+        """S2-A/B/D + S3-A/B/C: multi-column, case-insensitive store match with debug log."""
+        try:
+            matches = self.page.evaluate('(s) => {' +
+                'var rows = document.querySelectorAll("table:nth-child(2) tr.ant-table-row, table tr.ant-table-row");' +
+                'var hits = [];' +
+                'for (var r of rows) {' +
+                '  var c = r.querySelectorAll("td");' +
+                '  if (c.length >= 5) {' +
+                '    var link = null;' +
+                '    for (var j = 2; j <= 4 && j < c.length; j++) {' +
+                '      if (c[j] && c[j].innerText.trim().toUpperCase() === s.toUpperCase()) {' +
+                '        var ls = c[c.length-1] ? c[c.length-1].querySelectorAll("a") : null;' +
+                '        if (ls && ls.length > 0) { link = ls[0].href; break; }' +
+                '      }' +
+                '    }' +
+                '    if (link) hits.push(link);' +
+                '  }' +
+                '}' +
+                'return hits;' +
+            '}', store_id)
+        except Exception as e:
+            print(f'    ⚠️ evaluate failed: {e}')
+            return None
+        if not matches:
+            # S2-D: debug log all rows so we can see why nothing matched
+            try:
+                rows = self.page.evaluate('() => {' +
+                    'var out=[];var rs=document.querySelectorAll("tr.ant-table-row");' +
+                    'for (var r of rs){var c=r.querySelectorAll("td");var cols=[];' +
+                    'for (var i=0;i<c.length;i++)cols.push(c[i].innerText.trim());' +
+                    'out.push(cols.join(" | "));}return out;}')
+                print(f'    ⚠️ No row matched store {store_id} — {len(rows) if rows else 0} row(s):')
+                for r in (rows or [])[:10]:
+                    print(f'      {r}')
+            except Exception:
+                pass
+            return None
+        if len(matches) > 1:
+            # S3-C: multiple matches — warn, take first
+            print(f'    ⚠️ {len(matches)} rows match store {store_id} — using first')
+        return matches[0]
+
     def update_photo(self, sku, photo_url, label='', store_id=None):
         photo_url = normalize_url(photo_url)
         sku_id = sku.split('_S_')[-1] if '_S_' in sku else sku
@@ -146,30 +189,38 @@ class MMSUpdater:
             time.sleep(1)
             # Press Enter to search
             inp.press('Enter')
-            time.sleep(4)
-            # Find edit link from the table (column 3 = store ID)
-            edit_url = self.page.evaluate('(s) => {' +
-                'var rows = document.querySelectorAll("table:nth-child(2) tr.ant-table-row, table tr.ant-table-row");' +
-                'for (var r of rows) {' +
-                '  var c = r.querySelectorAll("td");' +
-                '  if (c.length >= 8) {' +
-                '    if (c[3] && c[3].innerText.trim() === s) {' +
-                '      var links = c[c.length-1] ? c[c.length-1].querySelectorAll("a") : null;' +
-                '      if (links && links.length > 0) return links[links.length-1].href;' +
-                '    }' +
-                '  }' +
-                '}' +
-                'return null;' +
-            '}', store_id)
+            # S2-A: wait for table to render (up to 15s) instead of fixed sleep
+            try:
+                self.page.wait_for_selector('tr.ant-table-row', timeout=15000)
+            except Exception:
+                time.sleep(3)
+            # Find edit link (S3: multi-column, case-insensitive, multi-match guard + debug log)
+            edit_url = self._find_edit_url(store_id)
             if not edit_url:
-                raise Exception(f'No edit link found for store {store_id}')
+                # S2-B: search retry once
+                print('    ↻ Edit link not found — re-searching...')
+                inp.fill('')
+                inp.fill(sku_id)
+                time.sleep(1)
+                inp.press('Enter')
+                try:
+                    self.page.wait_for_selector('tr.ant-table-row', timeout=15000)
+                except Exception:
+                    time.sleep(3)
+                edit_url = self._find_edit_url(store_id)
+            if not edit_url:
+                raise Exception(f'No edit link found for store {store_id} (after 2 attempts)')
             print(f'    Edit URL found')
             self.page.goto(edit_url, wait_until='domcontentloaded', timeout=45000)
             time.sleep(3)
+            # S3-D: verify we are on the right product page
+            ok_page = self.page.evaluate('(s) => { var t = document.body.innerText || ""; return t.indexOf(s) >= 0; }', sku_id)
+            if not ok_page:
+                raise Exception(f'Edit page does not contain SKU {sku_id} — possible wrong product/store')
             # Delete existing photos
             self.page.evaluate('() => {' +
-                'var del = document.querySelectorAll("[class*=\\"ant-upload-list-item\\"] [class*=\\"delete\\"]," +' +
-                '  "[aria-label=\\"delete\\"], .anticon-delete");' +
+                'var del = document.querySelectorAll("[class*=\"ant-upload-list-item\"] [class*=\"delete\"]," +' +
+                '  "[aria-label=\"delete\"], .anticon-delete");' +
                 'for (var b of del) {' +
                 '  var btn = b.closest("button") || b.parentElement;' +
                 '  if (btn) btn.click();' +
@@ -184,7 +235,7 @@ class MMSUpdater:
                 '  if (!r.ok) return "fetch fail:" + r.status;' +
                 '  var b = await r.blob();' +
                 '  var f = new File([b], "photo.jpg", {type: b.type || "image/jpeg"});' +
-                '  var fi = document.querySelectorAll("input[type=\\"file\\"]");' +
+                '  var fi = document.querySelectorAll("input[type=\"file\"]");' +
                 '  if (!fi || !fi[0]) return "no input";' +
                 '  var dt = new DataTransfer();' +
                 '  dt.items.add(f);' +
@@ -205,22 +256,47 @@ class MMSUpdater:
                 '}')
                 print(f'    Done: {done}')
                 time.sleep(3)
-                return True
+                # Common: verify photo actually persisted (reload edit page, count photos)
+                try:
+                    self.page.goto(edit_url, wait_until='domcontentloaded', timeout=45000)
+                    time.sleep(4)
+                    n_photos = self.page.evaluate('() => document.querySelectorAll(".ant-upload-list-item, [class*=\"ant-upload-list\"] img").length')
+                    print(f'    Verify: {n_photos} photo(s) after reload')
+                    if n_photos > 0:
+                        return True
+                    raise Exception('Photo verify failed: 0 photos after reload')
+                except Exception as ve:
+                    print(f'    ❌ {ve}')
+                    self.last_error = str(ve)
+                    return False
+            self.last_error = 'Upload result: ' + str(result)
             return False
         except Exception as e:
             print(f'    ❌ {e}')
+            self.last_error = str(e)
             return False
 
     def run(self, actions):
         if not actions:
             return []
         self.start()
+        self.last_error = ''
         results = []
         try:
             self.login()
             for sku, url, lbl, store_id in actions:
-                ok = self.update_photo(sku, url, lbl, store_id)
-                results.append({'sku': sku, 'label': lbl, 'photo': url, 'success': ok})
+                ok = False
+                reason = ''
+                for attempt in range(3):  # original + 2 retries (S1-A)
+                    self.last_error = ''
+                    ok = self.update_photo(sku, url, lbl, store_id)
+                    if ok:
+                        break
+                    reason = self.last_error or 'unknown'
+                    if attempt < 2:
+                        print(f'    ⚠️ Attempt {attempt+1}/3 failed ({reason}) — retrying...')
+                        time.sleep(3)
+                results.append({'sku': sku, 'label': lbl, 'photo': url, 'success': ok, 'reason': reason})
                 time.sleep(2)
         finally:
             self.stop()
@@ -294,8 +370,11 @@ def main():
         return
 
     print(f'\n📦 {len(actions)} phase(s)')
+    t0 = time.time()
     updater = MMSUpdater()
     results = updater.run(actions)
+    elapsed = time.time() - t0
+    print(f'⏱️ Processing time: {elapsed:.0f}s')
 
     for r in results:
         sku = r['sku']
@@ -319,9 +398,18 @@ def main():
         dashboard['history'].append({
             'sku': r['sku'], 'label': r.get('label', ''),
             'photo': r.get('photo', ''), 'status': 'success' if r['success'] else 'failed',
+            'reason': r.get('reason', ''),
             'time': now.isoformat()
         })
     dashboard['history'] = dashboard['history'][-500:]
+
+    # Run summary
+    ok_n = sum(1 for r in results if r['success'])
+    print(f'\n📊 Summary: {ok_n}/{len(results)} OK in {elapsed:.0f}s')
+    for r in results:
+        tag = '✅' if r['success'] else '❌'
+        extra = f' — {r.get("reason")}' if (not r['success'] and r.get('reason')) else ''
+        print(f'  {tag} {r["sku"]} [{r.get("label","")}]{extra}')
 
     # Save with fresh SHA
     config.pop('_sha', None)

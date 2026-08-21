@@ -539,7 +539,7 @@ function renderLog(){
     html+='<td style="text-align:center"><input type="checkbox" class="logSel" data-idx="'+idx+'"></td>'
     html+='<td style="font-size:0.75rem;color:#64748b">'+(x.time||'--')+'</td>'
     html+='<td><code style="color:#3498db;font-size:0.75rem"><a class="sku-link" href="https://www.hktvmall.com/hktv/p/'+esc(x.sku)+'" target="_blank">'+esc(x.sku)+'</a></code></td>'
-    html+='<td style="font-size:0.8rem">'+esc(x.label||x.action||'--')+'</td>'
+    html+='<td style="font-size:0.8rem">'+esc(x.label||x.action||'--')+(x.reason?'<br><span style="color:#dc2626;font-size:0.65rem">'+esc(x.reason)+'</span>':'')+'</td>'
     html+='<td style="text-align:center">'+imgHtml(x.photo||'')+'</td>'
     html+='<td style="text-align:center"><span class="'+bc+'">'+bt+'</span></td>'
     html+='<td style="text-align:center"><button class="btn btn-sm" style="background:#e94560;color:#fff;padding:2px 8px" onclick="deleteLog('+idx+')" title="刪除">✕</button></td>'
