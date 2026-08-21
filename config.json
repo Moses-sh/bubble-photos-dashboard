@@ -45,6 +45,29 @@
       "current_phase": -1,
       "status": "pending",
       "store_id": "H5550001"
+    },
+    "B0185003_S_AL_480117_02": {
+      "product_name": "ALFRESCO | 英國天然草本潤膚防蚊膏(Classic) (200ml) 無DEET|BB|G6PD|敏感肌|孕婦適用",
+      "phases": [
+        {
+          "label": "🟠 85折後波波圖",
+          "photo_url": "",
+          "time": ""
+        },
+        {
+          "label": "🟢 波波圖",
+          "photo_url": "https://lh3.googleusercontent.com/d/18Ab4COLEac4AzVWGYrXZuuf70_wxLooN",
+          "time": "2026-08-23T22:25:00"
+        },
+        {
+          "label": "🔵 原圖",
+          "photo_url": "https://lh3.googleusercontent.com/d/1OajkqZ0vkzjcIVhMkt4NSLA30ILT3tYY",
+          "time": "2026-08-27T23:55:00"
+        }
+      ],
+      "current_phase": -1,
+      "status": "pending",
+      "store_id": "B0185003"
     }
   },
   "last_updated": ""
