@@ -219,8 +219,8 @@ class MMSUpdater:
                 raise Exception(f'Edit page does not contain SKU {sku_id} — possible wrong product/store')
             # Delete existing photos
             self.page.evaluate('() => {' +
-                'var del = document.querySelectorAll("[class*=\"ant-upload-list-item\"] [class*=\"delete\"]," +' +
-                '  "[aria-label=\"delete\"], .anticon-delete");' +
+                'var del = document.querySelectorAll("[class*=\\"ant-upload-list-item\\"] [class*=\\"delete\\"]," +' +
+                '  "[aria-label=\\"delete\\"], .anticon-delete");' +
                 'for (var b of del) {' +
                 '  var btn = b.closest("button") || b.parentElement;' +
                 '  if (btn) btn.click();' +
@@ -235,7 +235,7 @@ class MMSUpdater:
                 '  if (!r.ok) return "fetch fail:" + r.status;' +
                 '  var b = await r.blob();' +
                 '  var f = new File([b], "photo.jpg", {type: b.type || "image/jpeg"});' +
-                '  var fi = document.querySelectorAll("input[type=\"file\"]");' +
+                '  var fi = document.querySelectorAll("input[type=\\"file\\"]");' +
                 '  if (!fi || !fi[0]) return "no input";' +
                 '  var dt = new DataTransfer();' +
                 '  dt.items.add(f);' +
@@ -260,7 +260,7 @@ class MMSUpdater:
                 try:
                     self.page.goto(edit_url, wait_until='domcontentloaded', timeout=45000)
                     time.sleep(4)
-                    n_photos = self.page.evaluate('() => document.querySelectorAll(".ant-upload-list-item, [class*=\"ant-upload-list\"] img").length')
+                    n_photos = self.page.evaluate('() => document.querySelectorAll(".ant-upload-list-item, [class*=\\"ant-upload-list\\"] img").length')
                     print(f'    Verify: {n_photos} photo(s) after reload')
                     if n_photos > 0:
                         return True
