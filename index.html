@@ -316,7 +316,7 @@ function upd(){
   if(!C)return;var sk=Object.keys(C.skus||{});var t=sk.length,a=0,d=0,p=0;
   sk.forEach(function(k){var s=C.skus[k];if(s.status==='active')a++;else if(s.status==='completed')d++;else p++});
   document.getElementById('sTotal').textContent=t;document.getElementById('sActive').textContent=a;document.getElementById('sDone').textContent=d;document.getElementById('sPending').textContent=p
-  var nx=nextUp(sk);document.getElementById('hdr').textContent=nx?'⏱️ 下一階段：'+nx.sku+' 階段 '+(nx.phase+1)+' 於 '+nx.t:'⏱️ 無即將進行';render()
+  var nx=nextUp(sk);document.getElementById('hdr').textContent=nx?(nx.due?'⏱️ 下一階段：'+nx.sku+' 階段 '+(nx.phase+1)+'（已到期，即將執行）':'⏱️ 下一階段：'+nx.sku+' 階段 '+(nx.phase+1)+' 於 '+nx.t):'⏱️ 無即將進行';render()
 }
 
 function openImg(url){document.getElementById('imgModalContent').src=url;document.getElementById('imgModal').classList.add('active')}
@@ -333,15 +333,15 @@ function imgHtml(url,size){
 }
 
 function nextUp(sk){
-  var n=new Date(),best=null,bestS=null,bestP=-1,bestT=null
+  var n=new Date(),best=null,bestS=null,bestP=-1,bestT=null,bestDue=false
   sk.forEach(function(k){
     var s=C.skus[k];if(!s.phases||s.status==='completed')return
     for(var i=Math.max(0,s.current_phase+1);i<s.phases.length;i++){
-      var ph=s.phases[i];if(!ph.time)continue
-      try{var t2=new Date(ph.time);if(t2>n&&(!best||t2<best)){best=t2;bestS=k;bestP=i;bestT=t2.toLocaleString('zh-HK',{year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false})}}catch(e){}
+      var ph=s.phases[i];if(!ph.time||!ph.photo_url)continue
+      try{var t2=new Date(ph.time),due=t2<=n;if(!best||(due&&!bestDue)||(due===bestDue&&t2<best)){best=t2;bestS=k;bestP=i;bestT=t2.toLocaleString('zh-HK',{year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false});bestDue=due}}catch(e){}
     }
   })
-  return bestS?{sku:bestS,phase:bestP,t:bestT}:null
+  return bestS?{sku:bestS,phase:bestP,t:bestT,due:bestDue}:null
 }
 
 function render(){
@@ -355,7 +355,7 @@ function render(){
     var curLbl=cur>=0&&cur<ph.length?esc(ph[cur].label||''):(ph.length>0?esc(ph[ph.length-1].label||''):'')
     var nextUrl='',nextLbl='--',nextTime='--',nextIdx=-1
     for(var i=cur+1;i<ph.length;i++){
-      if(ph[i].photo_url){nextUrl=ph[i].photo_url;nextLbl=esc(ph[i].label||'階段 '+(i+1));nextIdx=i;if(ph[i].time){try{nextTime=new Date(ph[i].time).toLocaleString('zh-HK',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false})}catch(e){}}break}
+      if(ph[i].photo_url){nextUrl=ph[i].photo_url;nextLbl=esc(ph[i].label||'階段 '+(i+1));nextIdx=i;if(ph[i].time){try{var _nt=new Date(ph[i].time);nextTime=(_nt<=new Date()?'已到期 ':'')+_nt.toLocaleString('zh-HK',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false})}catch(e){}}break}
     }
     var bc='badge '+s.status,bt=s.status==='active'?'🟢 進行中':s.status==='completed'?'🔵 已完成':s.status==='failed'?'❌ 失敗':'⏳ 未開始'
     var skuLink='https://www.hktvmall.com/hktv/p/'+k
@@ -419,7 +419,7 @@ function collectPhases(){
   var phases=[]
   var lbls=document.querySelectorAll('.phLbl'),urls=document.querySelectorAll('.phUrl'),times=document.querySelectorAll('.phTime')
   for(var i=0;i<lbls.length;i++){
-    var lbl=lbls[i].value.trim(),url=urls[i].value.trim(),t=times[i].value
+    var lbl=lbls[i].value.trim(),url=normUrl(urls[i].value),t=times[i].value
     if(lbl||url||t){
       var ph={};if(lbl)ph.label=lbl;if(url)ph.photo_url=url;else ph.photo_url=''
       if(t){ph.time=t+':00'}else{ph.time=''}
@@ -452,6 +452,14 @@ function addPhase(){
 // ========== GOOGLE DRIVE AUTO-FILL ==========
 var DRIVE_FOLDER='1ZPR_1rvS524nwPVPtyCaj5IQOZ0Cf_4r'
 function driveCdn(fileId){return 'https://lh3.googleusercontent.com/d/'+fileId}
+// Auto-convert Google Drive share links to lh3 CDN form (Drive links render as HTML, not images)
+function normUrl(u){
+  if(!u)return ''
+  u=u.trim()
+  var m=u.match(/drive\.google\.com\/file\/d\/([^\/?#]+)/)
+  if(m)return driveCdn(m[1])
+  return u
+}
 
 function matchDriveName(name,sku,skuBase){
   var n=String(name||'').replace(/\.(jpe?g|png|gif|webp|heic|avif)$/i,'').replace(/^\[/,'').trim()

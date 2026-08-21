@@ -2,9 +2,18 @@
 """
 Bubble Photos Update v3 — Per-SKU multi-phase photo swaps.
 """
-import os, sys, json, base64, time, requests
+import os, sys, json, base64, time, re, requests
 from datetime import datetime
 from playwright.sync_api import sync_playwright
+
+def normalize_url(u):
+    """Convert Google Drive share links to lh3 CDN form (Drive links render as HTML, not images)."""
+    if not u:
+        return u
+    m = re.search(r'drive\.google\.com/file/d/([^/?#]+)', u)
+    if m:
+        return f'https://lh3.googleusercontent.com/d/{m.group(1)}'
+    return u
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 GITHUB_REPO = 'FIFICHECK/bubble-photos-dashboard'
@@ -119,6 +128,7 @@ class MMSUpdater:
         print('  ✅ Logged in')
 
     def update_photo(self, sku, photo_url, label='', store_id=None):
+        photo_url = normalize_url(photo_url)
         sku_id = sku.split('_S_')[-1] if '_S_' in sku else sku
         store_id = store_id or STORE_ID
         print(f'  📸 [{label}] {sku}...')
