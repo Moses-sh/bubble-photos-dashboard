@@ -455,9 +455,9 @@ function driveCdn(fileId){return 'https://lh3.googleusercontent.com/d/'+fileId}
 
 function matchDriveName(name,sku,skuBase){
   var n=String(name||'').replace(/\.(jpe?g|png|gif|webp|heic|avif)$/i,'').replace(/^\[/,'').trim()
-  if(n===sku||n===skuBase)return 'wave'
-  if(n===sku+' (85)'||n===skuBase+' (85)'||n===sku+'（85）'||n===skuBase+'（85）')return '85'
-  if(n===sku+' (Original)'||n===skuBase+' (Original)'||n===sku+' (原圖)'||n===skuBase+' (原圖)')return 'orig'
+  if(n===sku+'_Stage 2'||n===skuBase+'_Stage 2')return 'wave'
+  if(n===sku+'_Stage 1.jpg'||n===skuBase+'_Stage 1.jpg')return '85'
+  if(n===sku+'_Stage 3'||n===skuBase+'_Stage 3')return 'orig'
   return null
 }
 
