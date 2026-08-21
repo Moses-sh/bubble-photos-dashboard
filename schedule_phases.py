@@ -7,7 +7,7 @@ import os, json, base64, requests, subprocess, sys
 from datetime import datetime, timedelta
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-GITHUB_REPO = 'FIFICHECK/bubble-photos-dashboard'
+GITHUB_REPO = 'Moses-sh/bubble-photos-dashboard'
 GITHUB_BRANCH = 'master'
 
 def get_token():
@@ -48,22 +48,32 @@ for sku, entry in config.get('skus', {}).items():
         try:
             pt = datetime.fromisoformat(t)
             diff = (pt - now).total_seconds()
-            if diff <= 900 and diff > -120:  # within 15min before or 2min after
+            if diff <= 900:  # due within next 15 min OR overdue at any age (photos_update.py guards early)
                 should_run = True
                 reasons.append(f'{sku} Phase {i+1} ({p.get("label","")}) at {t}')
             break  # only check next pending phase
         except:
             pass
 
+LOCK = '/tmp/bubble_photos_personal.lock'
+
 if should_run:
-    print(f'⏰ Phase due! {", ".join(reasons)}')
-    run_script = os.path.join(BASE_DIR, 'photos_update.py')
-    env = os.environ.copy()
-    result = subprocess.run([sys.executable, run_script], capture_output=True, text=True, env=env)
-    print(result.stdout)
-    if result.stderr:
-        print(f'⚠️ {result.stderr}', file=sys.stderr)
-    print(f'✅ Exit: {result.returncode}')
+    if os.path.exists(LOCK):
+        # previous run still in progress — skip this tick to avoid double upload
+        print('⏭️ Another run in progress (lock present) — skip')
+    else:
+        print(f'⏰ Phase due! {", ".join(reasons)}')
+        open(LOCK, 'w').write(str(os.getpid()))
+        run_script = os.path.join(BASE_DIR, 'photos_update.py')
+        env = os.environ.copy()
+        try:
+            result = subprocess.run([sys.executable, run_script], capture_output=True, text=True, env=env, timeout=900)
+            print(result.stdout)
+            if result.stderr:
+                print(f'⚠️ {result.stderr}', file=sys.stderr)
+            print(f'✅ Exit: {result.returncode}')
+        finally:
+            os.path.exists(LOCK) and os.remove(LOCK)
 else:
     # Silent — no output means no message sent (no_agent mode)
     pass
