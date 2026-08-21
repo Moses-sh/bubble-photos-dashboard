@@ -1,4 +1,33 @@
 {
-  "skus": {},
+  "skus": {
+    "H8976001_S_4897020274742": {
+      "product_name": "樂道 | 灰甲妥10毫升改善灰甲[平行進口]",
+      "phases": [
+        {
+          "label": "🟢 波波圖",
+          "photo_url": "https://drive.google.com/file/d/1Y5taxPVA8LawwJWYf42lTuYT9H6O7WEM/view?usp=drive_link",
+          "time": "2026-08-20T15:55:00"
+        },
+        {
+          "label": "🟠 85折後波波圖",
+          "photo_url": "",
+          "time": ""
+        },
+        {
+          "label": "🟢 波波圖",
+          "photo_url": "https://drive.google.com/file/d/1Y5taxPVA8LawwJWYf42lTuYT9H6O7WEM/view?usp=drive_link",
+          "time": "2026-08-23T22:25:00"
+        },
+        {
+          "label": "🔵 原圖",
+          "photo_url": "https://drive.google.com/file/d/15meZVBF7cLN7tT9n8bKNI4fxaP0Dhmlo/view?usp=drive_link",
+          "time": "2026-08-27T23:55:00"
+        }
+      ],
+      "current_phase": -1,
+      "status": "pending",
+      "store_id": "H8976001"
+    }
+  },
   "last_updated": ""
 }
