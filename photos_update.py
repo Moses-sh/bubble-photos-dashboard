@@ -13,6 +13,25 @@ MMS_EMAIL = 'jerry@hktv.com.hk'
 MMS_PASSWORD = 'JerRy111!!!!'
 STORE_ID = 'B0961005'
 
+# --- Personal config override (mms_creds.json, gitignored, NOT committed) ---
+def _load_personal():
+    p = os.path.join(BASE_DIR, 'mms_creds.json')
+    if os.path.exists(p):
+        try:
+            with open(p) as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
+
+_personal = _load_personal()
+if _personal:
+    GITHUB_REPO = _personal.get('github_repo', GITHUB_REPO)
+    GITHUB_BRANCH = _personal.get('github_branch', GITHUB_BRANCH)
+    MMS_EMAIL = _personal.get('mms_email', MMS_EMAIL)
+    MMS_PASSWORD = _personal.get('mms_password', MMS_PASSWORD)
+    STORE_ID = _personal.get('store_id', STORE_ID)
+
 def get_token():
     return os.environ.get('BUBBLE_PHOTOS_TOKEN', '')
 
