@@ -143,6 +143,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#e94560;box-sh
     <h3>➕ 新增 SKU</h3>
     <ul>
       <li>入 SKU ID（e.g. <code>B0961005_S_4891609702053</code>）</li>
+      <li>🏬 Store ID：可選 — 唔同 store 嘅 SKU 填返自己間 store，留空用預設</li>
       <li>撳 <b>🔍 取得名稱</b> 自動拎產品名稱（可選）</li>
       <li>每個階段入：標籤 / 相片網址 / 時間</li>
       <li>撳 <b>💾 儲存 SKU</b> 儲存 → 自動跳去 SKU 列表</li>
@@ -235,6 +236,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#e94560;box-sh
 <div>
   <label style="font-weight:600;font-size:0.8rem;color:#64748b;display:block;margin-bottom:4px">🔑 SKU ID</label>
   <input id="fSku" placeholder="B0961005_S_4891609702053" style="font-family:monospace">
+  <label style="font-weight:600;font-size:0.8rem;color:#64748b;display:block;margin-bottom:4px">🏬 Store ID（可選，留空用預設）</label>
+  <input id="fStore" placeholder="例如 B0961005" style="font-family:monospace">
   <div class="row" style="margin-bottom:8px">
     <button class="btn btn-blue btn-sm" onclick="fetchName()">🔍 取得名稱</button>
     <button class="btn btn-green btn-sm" onclick="saveSku()">💾 儲存 SKU</button>
@@ -358,7 +361,7 @@ function render(){
     var skuLink='https://www.hktvmall.com/hktv/p/'+k
     var row='<tr>'
     row+='<td style="text-align:center"><input type="checkbox" class="skuSel" data-sku="'+esc(k)+'"></td>'
-    row+='<td><code style="font-size:0.75rem"><a class="sku-link" href="'+skuLink+'" target="_blank" title="喺 HKTVmall 開啟">'+esc(k)+'</a></code></td>'
+    row+='<td><code style="font-size:0.75rem"><a class="sku-link" href="'+skuLink+'" target="_blank" title="喺 HKTVmall 開啟">'+esc(k)+'</a></code>'+(s.store_id?'<div style="font-size:0.65rem;color:#64748b;margin-top:2px">🏬 '+esc(s.store_id)+'</div>':'')+'</td>'
     row+='<td style="font-size:0.8rem;color:#1e293b">'+esc(s.product_name||'<span style="color:#94a3b8">--</span>')+'</td>'
     row+='<td style="text-align:center;font-size:0.8rem;font-weight:600;color:#d97706">'+(cur+1)+'/'+ph.length+'</td>'
     row+='<td style="text-align:center"><div style="display:inline-block;text-align:center">'+imgHtml(curUrl)+'<br><span style="color:#64748b;font-size:0.65rem">'+curLbl+'</span></div></td>'
@@ -493,24 +496,26 @@ function removePhase(idx){var p=collectPhases();if(p.length<=1){msg('至少要 1
 function delPhase(){var idx=parseInt(document.getElementById('fDelIdx').value);if(isNaN(idx)){msg('請輸入階段編號',true);return}removePhase(idx)}
 
 function saveSku(){
-  var sku=document.getElementById('fSku').value.trim(),name=document.getElementById('fName').value.trim()
+  var sku=document.getElementById('fSku').value.trim(),name=document.getElementById('fName').value.trim(),store=document.getElementById('fStore').value.trim()
   if(!sku){msg('需要 SKU',true);return}
   var phases=collectPhases()
   if(phases.length===0){msg('至少要 1 個階段',true);return}
   var c=JSON.parse(JSON.stringify(C));if(!c.skus)c.skus={}
   var e=c.skus[sku]||{product_name:'',phases:[],current_phase:-1,status:'pending'}
   if(name)e.product_name=name
+  if(store)e.store_id=store;else delete e.store_id
   e.phases=phases
   if(!e.current_phase&&e.current_phase!==0)e.current_phase=-1
   if(!e.status)e.status='pending'
   c.skus[sku]=e
-  save(c,function(){document.getElementById('fSku').value='';document.getElementById('fName').value='';renderPhases([]);sw('list')})
+  save(c,function(){document.getElementById('fSku').value='';document.getElementById('fName').value='';document.getElementById('fStore').value='';renderPhases([]);sw('list')})
 }
 
 function editSku(sku){
   var s=C.skus[sku];if(!s)return
   document.getElementById('fSku').value=sku
   document.getElementById('fName').value=s.product_name||''
+  document.getElementById('fStore').value=s.store_id||''
   renderPhases(s.phases||[])
   sw('add')
 }

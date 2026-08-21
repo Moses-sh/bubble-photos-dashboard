@@ -118,8 +118,9 @@ class MMSUpdater:
         print(f'    URL: {self.page.url}')
         print('  ✅ Logged in')
 
-    def update_photo(self, sku, photo_url, label=''):
+    def update_photo(self, sku, photo_url, label='', store_id=None):
         sku_id = sku.split('_S_')[-1] if '_S_' in sku else sku
+        store_id = store_id or STORE_ID
         print(f'  📸 [{label}] {sku}...')
         try:
             self.page.goto('https://merchant.shoalter.com/product-management/product-list', wait_until='load', timeout=45000)
@@ -149,9 +150,9 @@ class MMSUpdater:
                 '  }' +
                 '}' +
                 'return null;' +
-            '}', STORE_ID)
+            '}', store_id)
             if not edit_url:
-                raise Exception(f'No edit link found for store {STORE_ID}')
+                raise Exception(f'No edit link found for store {store_id}')
             print(f'    Edit URL found')
             self.page.goto(edit_url, wait_until='domcontentloaded', timeout=45000)
             time.sleep(3)
@@ -207,8 +208,8 @@ class MMSUpdater:
         results = []
         try:
             self.login()
-            for sku, url, lbl in actions:
-                ok = self.update_photo(sku, url, lbl)
+            for sku, url, lbl, store_id in actions:
+                ok = self.update_photo(sku, url, lbl, store_id)
                 results.append({'sku': sku, 'label': lbl, 'photo': url, 'success': ok})
                 time.sleep(2)
         finally:
@@ -263,7 +264,7 @@ def main():
         if next_phase >= 0:
             p = phases[next_phase]
             print(f'  🟢 {sku}: Phase {next_phase+1} [{p.get("label","")}]')
-            actions.append((sku, p['photo_url'], p.get('label', f'Phase {next_phase+1}')))
+            actions.append((sku, p['photo_url'], p.get('label', f'Phase {next_phase+1}'), entry.get('store_id')))
             config['skus'][sku]['_next_phase'] = next_phase
         else:
             for i in range(current_phase + 1, len(phases)):
