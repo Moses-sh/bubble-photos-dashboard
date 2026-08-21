@@ -292,7 +292,7 @@ var C,D,rs=30
 function init(){fetchD();setInterval(function(){rs--;if(rs<=0){rs=30;fetchD()};document.getElementById('sRefresh').textContent=rs+'s'},1000);setInterval(function(){var n=new Date();document.getElementById('sTimer').textContent=String(60-n.getSeconds()).padStart(2,'0')+'s'},1000)}
 init()
 
-function fetchD(){Promise.all([fetch(CU).then(function(r){if(!r.ok)throw Error('C fail');return r.json()}),fetch(DU).then(function(r){if(!r.ok)throw Error('D fail');return r.json()}).catch(function(){return{}})]).then(function(r){C=r[0];D=r[1]||{};upd();rs=30}).catch(function(e){console.log('E:',e.message)})}
+function fetchD(){Promise.all([fetch(CU+'?t='+Date.now()).then(function(r){if(!r.ok)throw Error('C fail');return r.json()}),fetch(DU+'?t='+Date.now()).then(function(r){if(!r.ok)throw Error('D fail');return r.json()}).catch(function(){return{}})]).then(function(r){C=r[0];D=r[1]||{};upd();rs=30}).catch(function(e){console.log('E:',e.message)})}
 
 function msg(t,e){var el=document.getElementById('msg');el.textContent=t;el.className='msg '+(e?'err':'ok');el.style.display='block';setTimeout(function(){el.style.display='none'},4000)}
 
