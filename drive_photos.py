@@ -6,9 +6,9 @@ Google Drive directly (which is CORS-blocked in browsers).
 """
 import os, json, base64, re, requests
 
-GITHUB_REPO = 'FIFICHECK/bubble-photos-dashboard'
+GITHUB_REPO = 'Moses-sh/bubble-photos-dashboard'
 GITHUB_BRANCH = 'master'
-DRIVE_FOLDER = '1xyzWMrEK7EMsVKBBH2_8dRMYVCXK0E5q'
+DRIVE_FOLDER = '1ZPR_1rvS524nwPVPtyCaj5IQOZ0Cf_4r'
 
 def get_token():
     t = os.environ.get('BUBBLE_PHOTOS_TOKEN', '')
