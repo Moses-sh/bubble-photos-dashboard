@@ -204,7 +204,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#00d4ff;box-sh
 <table>
 <thead><tr>
   <th style="width:30px;text-align:center"><input type="checkbox" id="selectAll" onchange="toggleAll()"></th>
-  <th style="width:22%">SKU / 連結</th>
+  <th style="width:22%;font-size:0.9rem">SKU / 連結</th>
   <th style="width:20%">產品</th>
   <th style="width:6%;text-align:center">階段</th>
   <th style="width:10%;text-align:center">現時 🖼️</th>
@@ -219,7 +219,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#00d4ff;box-sh
   <h4 style="color:#00d4ff;font-size:0.9rem;padding:8px 0 4px">🔵 已完成 <span id="doneCount" style="color:#7a94b8;font-weight:normal"></span></h4>
   <table><thead><tr style="opacity:0.6">
     <th style="width:30px;text-align:center"></th>
-    <th style="width:22%">SKU / 連結</th>
+    <th style="width:22%;font-size:0.9rem">SKU / 連結</th>
     <th style="width:20%">產品</th>
     <th style="width:6%;text-align:center">階段</th>
     <th style="width:10%;text-align:center">現時 🖼️</th>
@@ -361,7 +361,7 @@ function render(){
     var skuLink='https://www.hktvmall.com/hktv/p/'+k
     var row='<tr>'
     row+='<td style="text-align:center"><input type="checkbox" class="skuSel" data-sku="'+esc(k)+'"></td>'
-    row+='<td><code style="font-size:0.75rem"><a class="sku-link" href="'+skuLink+'" target="_blank" title="喺 HKTVmall 開啟">'+esc(k)+'</a></code>'+(s.store_id?'<div style="font-size:0.7rem;color:#8aa3c4;margin-top:2px">🏬 '+esc(s.store_id)+'</div>':'')+'</td>'
+    row+='<td><code style="font-size:0.9rem;font-weight:600"><a class="sku-link" href="'+skuLink+'" target="_blank" title="喺 HKTVmall 開啟">'+esc(k)+'</a></code>'+(s.store_id?'<div style="font-size:0.75rem;color:#8aa3c4;margin-top:2px">🏬 '+esc(s.store_id)+'</div>':'')+'</td>'
     row+='<td style="font-size:0.85rem;color:#e6f1ff">'+esc(s.product_name||'<span style="color:#5a7290">--</span>')+'</td>'
     row+='<td style="text-align:center;font-size:0.85rem;font-weight:600;color:#ffd700">'+(cur+1)+'/'+ph.length+'</td>'
     row+='<td style="text-align:center"><div style="display:inline-block;text-align:center">'+imgHtml(curUrl)+'<br><span style="color:#8aa3c4;font-size:0.7rem">'+curLbl+'</span></div></td>'
@@ -538,7 +538,7 @@ function renderLog(){
     html+='<tr>'
     html+='<td style="text-align:center"><input type="checkbox" class="logSel" data-idx="'+idx+'"></td>'
     html+='<td style="font-size:0.8rem;color:#8aa3c4">'+(x.time||'--')+'</td>'
-    html+='<td><code style="color:#00d4ff;font-size:0.8rem"><a class="sku-link" href="https://www.hktvmall.com/hktv/p/'+esc(x.sku)+'" target="_blank">'+esc(x.sku)+'</a></code></td>'
+    html+='<td><code style="color:#00d4ff;font-size:0.85rem"><a class="sku-link" href="https://www.hktvmall.com/hktv/p/'+esc(x.sku)+'" target="_blank">'+esc(x.sku)+'</a></code></td>'
     html+='<td style="font-size:0.8rem">'+esc(x.label||x.action||'--')+(x.reason?'<br><span style="color:#ff3b5c;font-size:0.7rem">'+esc(x.reason)+'</span>':'')+'</td>'
     html+='<td style="text-align:center">'+imgHtml(x.photo||'')+'</td>'
     html+='<td style="text-align:center"><span class="'+bc+'">'+bt+'</span></td>'
