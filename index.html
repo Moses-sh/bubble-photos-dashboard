@@ -468,7 +468,7 @@ function normUrl(u){
 function matchDriveName(name,sku,skuBase){
   var n=String(name||'').replace(/\.(jpe?g|png|gif|webp|heic|avif)$/i,'').replace(/^\[/,'').trim()
   if(n===sku+'_Stage 2'||n===skuBase+'_Stage 2')return 'wave'
-  if(n===sku+'_Stage 1.jpg'||n===skuBase+'_Stage 1.jpg')return '85'
+  if(n===sku+'_Stage 1.jpg'||n===skuBase+'_Stage 1.jpg'||n===sku+'_Stage 1'||n===skuBase+'_Stage 1')return '85'
   if(n===sku+'_Stage 3'||n===skuBase+'_Stage 3')return 'orig'
   return null
 }
