@@ -297,17 +297,21 @@ function fetchD(){Promise.all([fetch(CU+'?t='+Date.now()).then(function(r){if(!r
 function msg(t,e){var el=document.getElementById('msg');el.textContent=t;el.className='msg '+(e?'err':'ok');el.style.display='block';setTimeout(function(){el.style.display='none'},4000)}
 
 function save(c,cb){
+  msg('⏳ 儲存中...')
   function doSave(attempt){
-    fetch('https://api.github.com/repos/'+R+'/contents/config.json?ref='+B,{headers:{'Authorization':'token '+TK,'Accept':'application/vnd.github.v3+json'}}).then(function(r){return r.json()}).then(function(i){
+    var ac=new AbortController(),tm=setTimeout(function(){ac.abort()},15000)
+    fetch('https://api.github.com/repos/'+R+'/contents/config.json?ref='+B,{headers:{'Authorization':'token '+TK,'Accept':'application/vnd.github.v3+json'},signal:ac.signal}).then(function(r){return r.json()}).then(function(i){
       var s=i.sha||''
-      fetch('https://api.github.com/repos/'+R+'/contents/config.json',{method:'PUT',headers:{'Authorization':'token '+TK,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},body:JSON.stringify({message:'Update config',content:btoa(unescape(encodeURIComponent(JSON.stringify(c,null,2)))),sha:s,branch:B})}).then(function(r){
+      fetch('https://api.github.com/repos/'+R+'/contents/config.json',{method:'PUT',headers:{'Authorization':'token '+TK,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},body:JSON.stringify({message:'Update config',content:btoa(unescape(encodeURIComponent(JSON.stringify(c,null,2)))),sha:s,branch:B}),signal:ac.signal}).then(function(r){
+        clearTimeout(tm)
         if(r.ok)return r.json();
         return r.json().then(function(e){throw new Error((e.message||'unknown')+' (attempt '+(attempt+1)+')')});
       }).then(function(r){msg('✅ 已儲存！');if(cb)cb();fetchD()}).catch(function(e){
+        if(e.name==='AbortError')e=new Error('timeout')
         if(attempt<5){setTimeout(function(){doSave(attempt+1)},1500)}
-        else msg('❌ 儲存失敗（5 次嘗試後）',true)
+        else msg('❌ 儲存失敗（5 次嘗試後）: '+e.message,true)
       })
-    }).catch(function(e){if(attempt<5){setTimeout(function(){doSave(attempt+1)},1500)}else msg('❌ SHA fetch failed: '+e.message,true)})
+    }).catch(function(e){clearTimeout(tm);if(e.name==='AbortError')e=new Error('timeout');if(attempt<5){setTimeout(function(){doSave(attempt+1)},1500)}else msg('❌ SHA 讀取失敗: '+e.message,true)})
   }
   doSave(0)
 }
@@ -490,7 +494,11 @@ function fetchDrivePhotos(){
     var phases=collectPhases()
     var filled=0
     phases.forEach(function(p,i){
-      var url2=(i===1?p85:(i===3?orig:wave))
+      var lbl=String(p.label||'').toLowerCase()
+      var url2=''
+      if(lbl.indexOf('85')>=0)url2=p85
+      else if(lbl.indexOf('原圖')>=0||lbl.indexOf('original')>=0)url2=orig
+      else url2=wave
       if(url2&&!p.photo_url){p.photo_url=url2;filled++}
     })
     renderPhases(phases)
