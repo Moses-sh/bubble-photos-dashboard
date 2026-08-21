@@ -1,3 +1,28 @@
 {
-  "history": []
+  "history": [
+    {
+      "sku": "H8976001_S_4897020274742",
+      "label": "\ud83d\udfe0 85\u6298\u5f8c\u6ce2\u6ce2\u5716",
+      "photo": "https://lh3.googleusercontent.com/d/1QdefEeS_J706leoP7Z8wmsP43Gc04xux",
+      "status": "failed",
+      "reason": "Page.evaluate: SyntaxError: missing ) after argument list\n    at eval (<anonymous>)\n    at UtilityScript.evaluate (<anonymous>:311:30)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+      "time": "2026-08-21T23:56:23.574963"
+    },
+    {
+      "sku": "H5550001_S_TRO31721",
+      "label": "\ud83d\udfe0 85\u6298\u5f8c\u6ce2\u6ce2\u5716",
+      "photo": "https://lh3.googleusercontent.com/d/1l0FLUCCBWiKcBULVg6D80LA2mqu3ycE5",
+      "status": "failed",
+      "reason": "Page.evaluate: SyntaxError: missing ) after argument list\n    at eval (<anonymous>)\n    at UtilityScript.evaluate (<anonymous>:311:30)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+      "time": "2026-08-21T23:56:23.574963"
+    },
+    {
+      "sku": "B0185003_S_AL_480117_02",
+      "label": "\ud83d\udfe0 85\u6298\u5f8c\u6ce2\u6ce2\u5716",
+      "photo": "https://lh3.googleusercontent.com/d/1fBjLmGQFHR6OGCt0ASqOtimnMvYj73Pr",
+      "status": "failed",
+      "reason": "Page.evaluate: SyntaxError: missing ) after argument list\n    at eval (<anonymous>)\n    at UtilityScript.evaluate (<anonymous>:311:30)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+      "time": "2026-08-21T23:56:23.574963"
+    }
+  ]
 }
