@@ -19,10 +19,10 @@
           "time": "2026-08-27T23:55:00"
         }
       ],
-      "current_phase": 0,
+      "current_phase": 1,
       "status": "active",
       "store_id": "H8976001",
-      "last_updated": "2026-08-22T00:13:21.218813"
+      "last_updated": "2026-08-23T22:26:38.950934"
     },
     "H5550001_S_TRO31721": {
       "product_name": "Jamieson | \u7279\u5f37\u9577\u6548\u5929\u7136\u7dad\u4ed6\u547d C (1000 \u6beb\u514b) 100 \u7c92(\u5305\u88dd\u96a8\u6a5f\u63d0\u4f9b) [\u5e73\u884c\u9032\u53e3] \u514d\u75ab\u529b\u6297\u8001\u7f8e\u767d\u76ae\u819a\u5065\u5eb7 \u6b64\u65e5\u671f\u524d\u6700\u4f73:2029\u5e7403\u670831\u65e5",
@@ -43,10 +43,10 @@
           "time": "2026-08-27T23:55:00"
         }
       ],
-      "current_phase": 0,
+      "current_phase": 1,
       "status": "active",
       "store_id": "H5550001",
-      "last_updated": "2026-08-22T00:13:21.218813"
+      "last_updated": "2026-08-23T22:26:38.950934"
     },
     "B0185003_S_AL_480117_02": {
       "product_name": "ALFRESCO | \u82f1\u570b\u5929\u7136\u8349\u672c\u6f64\u819a\u9632\u868a\u818f(Classic) (200ml) \u7121DEET|BB|G6PD|\u654f\u611f\u808c|\u5b55\u5a66\u9069\u7528",
@@ -67,10 +67,10 @@
           "time": "2026-08-27T23:55:00"
         }
       ],
-      "current_phase": 0,
+      "current_phase": 1,
       "status": "active",
       "store_id": "B0185003",
-      "last_updated": "2026-08-22T00:13:21.218813"
+      "last_updated": "2026-08-23T22:26:38.950934"
     }
   },
   "last_updated": ""
