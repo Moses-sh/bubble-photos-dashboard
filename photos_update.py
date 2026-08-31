@@ -18,8 +18,8 @@ def normalize_url(u):
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 GITHUB_REPO = 'FIFICHECK/bubble-photos-dashboard'
 GITHUB_BRANCH = 'master'
-MMS_EMAIL = 'jerry@hktv.com.hk'
-MMS_PASSWORD = 'JerRy111!!!!'
+MMS_EMAIL = ''
+MMS_PASSWORD = ''
 STORE_ID = 'B0961005'
 
 # --- Personal config override (mms_creds.json, gitignored, NOT committed) ---
@@ -40,6 +40,11 @@ if _personal:
     MMS_EMAIL = _personal.get('mms_email', MMS_EMAIL)
     MMS_PASSWORD = _personal.get('mms_password', MMS_PASSWORD)
     STORE_ID = _personal.get('store_id', STORE_ID)
+
+if not MMS_EMAIL or not MMS_PASSWORD:
+    raise RuntimeError(
+        'MMS credentials missing — create mms_creds.json (gitignored) '
+        'with mms_email / mms_password keys (no hardcoded fallback allowed).')
 
 def get_token():
     return os.environ.get('BUBBLE_PHOTOS_TOKEN', '')
