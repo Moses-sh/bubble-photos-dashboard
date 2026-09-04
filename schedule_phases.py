@@ -38,6 +38,9 @@ reasons = []
 for sku, entry in config.get('skus', {}).items():
     if entry.get('status') == 'completed':
         continue
+    if entry.get('retry_paused'):
+        # Paused after repeated failures (see photos_update.py) — resume via config edit
+        continue
     phases = entry.get('phases', [])
     cur = entry.get('current_phase', -1)
     for i in range(cur + 1, len(phases)):
