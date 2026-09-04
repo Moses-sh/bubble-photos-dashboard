@@ -37,14 +37,21 @@ _personal = _load_personal()
 if _personal:
     GITHUB_REPO = _personal.get('github_repo', GITHUB_REPO)
     GITHUB_BRANCH = _personal.get('github_branch', GITHUB_BRANCH)
-    MMS_EMAIL = _personal.get('mms_email', MMS_EMAIL)
-    MMS_PASSWORD = _personal.get('mms_password', MMS_PASSWORD)
     STORE_ID = _personal.get('store_id', STORE_ID)
+
+# 帳密由密碼庫提取(/home/snkwok/.credentials/hktv-vault.json)—— 唯一真相來源。
+# 呢個 repo 係公開嘅,絕對唔可以再喺任何檔案擺帳密。
+import sys as _sys
+_sys.path.insert(0, '/home/snkwok/.credentials')
+from hktv_creds import get as _cred
+_c = _cred('moses', 'rmo')
+MMS_EMAIL = _c['user_id']
+MMS_PASSWORD = _c['password']
 
 if not MMS_EMAIL or not MMS_PASSWORD:
     raise RuntimeError(
-        'MMS credentials missing — create mms_creds.json (gitignored) '
-        'with mms_email / mms_password keys (no hardcoded fallback allowed).')
+        'MMS credentials missing — 檢查 /home/snkwok/.credentials/hktv-vault.json '
+        '入面有冇 moses/rmo 呢個帳號。')
 
 def get_token():
     return os.environ.get('BUBBLE_PHOTOS_TOKEN', '')
@@ -341,6 +348,9 @@ def main():
         if status == 'completed':
             print(f'  ⏭️ {sku}: completed')
             continue
+        if entry.get('retry_paused'):
+            print(f'  ⏸️ {sku}: retry paused after {entry.get("fail_count", 0)} fails — resume via config (retry_paused=false)')
+            continue
         next_phase = -1
         for i in range(current_phase + 1, len(phases)):
             p = phases[i]
@@ -388,13 +398,23 @@ def main():
             if ok:
                 np = config['skus'][sku].pop('_next_phase', -1)
                 config['skus'][sku]['current_phase'] = np
+                config['skus'][sku]['fail_count'] = 0
+                config['skus'][sku].pop('retry_paused', None)
                 config['skus'][sku]['last_updated'] = now.isoformat()
                 if np >= len(config['skus'][sku].get('phases', [])) - 1:
                     config['skus'][sku]['status'] = 'completed'
                 else:
                     config['skus'][sku]['status'] = 'active'
             else:
-                config['skus'][sku]['status'] = 'failed'
+                # Failure-retry protection (2026-09-04): pause auto-retry after 5 consecutive
+                # failures so a persistent problem (e.g. MMS password expired) can't hammer
+                # MMS logins every 2 min indefinitely (account lockout risk).
+                # Resume = manual config edit: status=pending, retry_paused=false, fail_count=0
+                entry = config['skus'][sku]
+                entry['status'] = 'failed'
+                entry['fail_count'] = entry.get('fail_count', 0) + 1
+                if entry['fail_count'] >= 5:
+                    entry['retry_paused'] = True
 
     dashboard = get_dashboard_data()
     if 'history' not in dashboard:
