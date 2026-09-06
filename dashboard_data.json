@@ -159,6 +159,22 @@
       "status": "success",
       "reason": "",
       "time": "2026-09-06T22:28:19.693710"
+    },
+    {
+      "sku": "H5550001_S_TRO-BSL97795",
+      "label": "\ud83d\uddbc\ufe0f \u63db\u5716",
+      "photo": "https://lh3.googleusercontent.com/d/1q3KKBNDdojmdXUt8GfLGd5Ul30unrvyT",
+      "status": "success",
+      "reason": "",
+      "time": "2026-09-06T23:30:21.190124"
+    },
+    {
+      "sku": "H8976001_S_3401345935571",
+      "label": "\ud83d\uddbc\ufe0f \u63db\u5716",
+      "photo": "https://lh3.googleusercontent.com/d/1nV9wI28wukKOjr7kRGx0RpPLPhpElWuQ",
+      "status": "success",
+      "reason": "",
+      "time": "2026-09-06T23:30:21.190124"
     }
   ]
 }
