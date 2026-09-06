@@ -79,23 +79,18 @@
       "status": "active",
       "phases": [
         {
-          "label": "🟠 85折後波波圖",
+          "time": "2026-09-04T23:55:00",
           "photo_url": "https://lh3.googleusercontent.com/d/1aVzpBviB809tRLEvFxAegDzkQqcCQmUH",
-          "time": "2026-09-04T23:55:00"
+          "label": "🟠 85折後波波圖"
         },
         {
-          "label": "🟢 波波圖",
-          "photo_url": "https://lh3.googleusercontent.com/d/1GyEuYjIoKGwUticcqmrWb-Pxv2gBfiZr",
-          "time": "2026-09-06T22:55:00"
-        },
-        {
-          "label": "🔵 原圖",
+          "time": "2026-09-06T22:28:00",
           "photo_url": "https://lh3.googleusercontent.com/d/1kqhQiBPmm1iJT7wKwRRiDwLT6AUfQ6J0",
-          "time": "2026-09-10T23:55:00"
+          "label": "🔵 原圖"
         }
       ],
       "fail_count": 0,
-      "last_updated": "2026-09-04T23:56:55.900542"
+      "last_updated": "2026-09-06T20:19:26.393571+08:00"
     }
   },
   "last_updated": ""
