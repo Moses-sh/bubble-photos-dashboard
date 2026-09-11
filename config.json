@@ -95,18 +95,13 @@
     "H5550001_S_TRO-BSL97795": {
       "product_name": "博士倫 PreserVision 視力健康 維他命礦物質補充劑 210粒迷你軟膠囊 AREDS 2 (平行進口)",
       "store_id": "H5550001",
-      "current_phase": 0,
-      "status": "completed",
+      "current_phase": -1,
+      "status": "pending",
       "phases": [
         {
-          "label": "🖼️ 換圖",
+          "time": "2026-09-06T23:30:00",
           "photo_url": "https://lh3.googleusercontent.com/d/1iPjrWKXZC15DCpdgbnRoWmYRjLfqpkrb",
-          "time": "2026-09-06T23:30:00"
-        },
-        {
-          "label": "階段 2",
-          "photo_url": "https://lh3.googleusercontent.com/d/1iPjrWKXZC15DCpdgbnRoWmYRjLfqpkrb",
-          "time": "2026-09-11T23:30:00"
+          "label": "🖼️ 換圖"
         }
       ],
       "last_updated": "2026-09-06T23:30:21.190124",
