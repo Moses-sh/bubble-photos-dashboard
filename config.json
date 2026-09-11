@@ -95,8 +95,8 @@
     "H5550001_S_TRO-BSL97795": {
       "product_name": "\u535a\u58eb\u502b PreserVision \u8996\u529b\u5065\u5eb7 \u7dad\u4ed6\u547d\u7926\u7269\u8cea\u88dc\u5145\u5291 210\u7c92\u8ff7\u4f60\u8edf\u81a0\u56ca AREDS 2 (\u5e73\u884c\u9032\u53e3)",
       "store_id": "H5550001",
-      "current_phase": 1,
-      "status": "active",
+      "current_phase": 2,
+      "status": "completed",
       "phases": [
         {
           "time": "2026-09-06T23:30:00",
@@ -114,7 +114,7 @@
           "label": "\ud83d\uddbc\ufe0f \u63db\u5716"
         }
       ],
-      "last_updated": "2026-09-11T18:24:49.864058",
+      "last_updated": "2026-09-11T23:30:58.557695",
       "fail_count": 0
     },
     "H8976001_S_3401345935571": {
