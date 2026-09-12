@@ -118,20 +118,32 @@
       "fail_count": 0
     },
     "H8976001_S_3401345935571": {
-      "product_name": "博士倫 PreserVision 視力健康 維他命礦物質補充劑 210粒迷你軟膠囊 AREDS 2 (平行進口)",
+      "product_name": "Bioderma 貝德瑪 深層卸妝潔膚水 500ml 紅蓋 (平行進口版)",
       "store_id": "H8976001",
       "current_phase": 0,
       "status": "completed",
       "phases": [
         {
+          "time": "2026-09-06T23:30:00",
+          "photo_url": "https://lh3.googleusercontent.com/d/1nV9wI28wukKOjr7kRGx0RpPLPhpElWuQ",
+          "label": "🖼️ 換圖"
+        }
+      ],
+      "last_updated": "2026-09-06T23:30:21.190124",
+      "fail_count": 0
+    },
+    "H5550001_S_TRO31308": {
+      "product_name": "",
+      "phases": [
+        {
           "label": "🟢 波波圖",
           "photo_url": "",
-          "time": "2026-09-13T22:25:00"
+          "time": ""
         },
         {
           "label": "🟠 85折後波波圖",
-          "photo_url": "https://lh3.googleusercontent.com/d/1kWW-GfcBb8LDcLV5TTpKgC29b9cRdEKZ",
-          "time": ""
+          "photo_url": "https://lh3.googleusercontent.com/d/12Uj7_BnR_VxxCmDF6IZ7bnJuCz98ICNa",
+          "time": "2026-09-13T22:25:00"
         },
         {
           "label": "🟢 波波圖",
@@ -144,8 +156,9 @@
           "time": ""
         }
       ],
-      "last_updated": "2026-09-06T23:30:21.190124",
-      "fail_count": 0
+      "current_phase": -1,
+      "status": "pending",
+      "store_id": "H5550001"
     }
   },
   "last_updated": ""
