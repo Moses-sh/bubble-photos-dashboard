@@ -124,9 +124,24 @@
       "status": "completed",
       "phases": [
         {
-          "time": "2026-09-06T23:30:00",
-          "photo_url": "https://lh3.googleusercontent.com/d/1nV9wI28wukKOjr7kRGx0RpPLPhpElWuQ",
-          "label": "🖼️ 換圖"
+          "label": "🟢 波波圖",
+          "photo_url": "",
+          "time": ""
+        },
+        {
+          "label": "🟠 85折後波波圖",
+          "photo_url": "https://lh3.googleusercontent.com/d/1kWW-GfcBb8LDcLV5TTpKgC29b9cRdEKZ",
+          "time": "2026-09-13T22:25:00"
+        },
+        {
+          "label": "🟢 波波圖",
+          "photo_url": "",
+          "time": ""
+        },
+        {
+          "label": "🔵 原圖",
+          "photo_url": "",
+          "time": ""
         }
       ],
       "last_updated": "2026-09-06T23:30:21.190124",
