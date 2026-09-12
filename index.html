@@ -366,7 +366,7 @@ function render(){
     var row='<tr>'
     row+='<td style="text-align:center"><input type="checkbox" class="skuSel" data-sku="'+esc(k)+'"></td>'
     row+='<td><code style="font-size:0.9rem;font-weight:600"><a class="sku-link" href="'+skuLink+'" target="_blank" title="喺 HKTVmall 開啟">'+esc(k)+'</a></code>'+(s.store_id?'<div style="font-size:0.75rem;color:#8aa3c4;margin-top:2px">🏬 '+esc(s.store_id)+'</div>':'')+'</td>'
-    row+='<td style="font-size:0.85rem;color:#e6f1ff">'+esc(s.product_name||'<span style="color:#5a7290">--</span>')+'</td>'
+    row+='<td style="font-size:0.85rem;color:#e6f1ff">'+(s.product_name?esc(s.product_name):'<span style="color:#5a7290">--</span>')+'</td>'
     row+='<td style="text-align:center;font-size:0.85rem;font-weight:600;color:#ffd700">'+(cur+1)+'/'+ph.length+'</td>'
     row+='<td style="text-align:center"><div style="display:inline-block;text-align:center">'+imgHtml(curUrl)+'<br><span style="color:#8aa3c4;font-size:0.7rem">'+curLbl+'</span></div></td>'
     row+='<td style="text-align:center"><div style="display:inline-block;text-align:center">'+imgHtml(nextUrl)+'<br><span style="color:#8aa3c4;font-size:0.7rem">'+nextLbl+'</span></div></td>'
@@ -524,7 +524,7 @@ function saveSku(){
   var e=c.skus[sku]||{product_name:'',phases:[],current_phase:-1,status:'pending'}
   if(name)e.product_name=name
   if(store)e.store_id=store;else delete e.store_id
-  e.phases=phases
+  e.phases=phases;var bpHasFuture=phases.some(function(p){return p&&p.time&&new Date(p.time).getTime()>Date.now()});if(bpHasFuture&&(e.status==='completed'||e.current_phase>=phases.length)){e.current_phase=-1;e.status='pending'}
   if(!e.current_phase&&e.current_phase!==0)e.current_phase=-1
   if(!e.status)e.status='pending'
   c.skus[sku]=e
