@@ -398,6 +398,10 @@ function fetchName(){
       else msg('⚠️ 無法讀取名稱，請手動輸入',true)
     }).catch(function(e){tryProxy(idx+1)})
   }
+  fetch('https://fificheck-name-proxy.fificheck.workers.dev/name/'+encodeURIComponent(sk)).then(function(r){return r.json()}).then(function(j){
+    if(j&&j.name){document.getElementById('fName').value=('✅ '+j.name)}
+    else tryProxy(0)
+  }).catch(function(){tryProxy(0)})
   tryProxy(0)
 }
 
