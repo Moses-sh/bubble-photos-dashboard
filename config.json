@@ -120,8 +120,8 @@
     "H8976001_S_3401345935571": {
       "product_name": "Bioderma 貝德瑪 深層卸妝潔膚水 500ml 紅蓋 (平行進口版)",
       "store_id": "H8976001",
-      "current_phase": 0,
-      "status": "completed",
+      "current_phase": -1,
+      "status": "pending",
       "phases": [
         {
           "label": "🟢 波波圖",
