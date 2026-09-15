@@ -229,33 +229,45 @@ class MMSUpdater:
             ok_page = self.page.evaluate('(s) => { var t = document.body.innerText || ""; return t.indexOf(s) >= 0; }', sku_id)
             if not ok_page:
                 raise Exception(f'Edit page does not contain SKU {sku_id} — possible wrong product/store')
-            # Delete existing photos
-            self.page.evaluate('() => {' +
-                'var del = document.querySelectorAll("[class*=\\"ant-upload-list-item\\"] [class*=\\"delete\\"]," +' +
-                '  "[aria-label=\\"delete\\"], .anticon-delete");' +
-                'for (var b of del) {' +
-                '  var btn = b.closest("button") || b.parentElement;' +
-                '  if (btn) btn.click();' +
-                '}' +
-                'return true;' +
-            '}')
+            # Delete existing photos — SCOPE: 主要照片 (main photo) area ONLY
+            del_res = self.page.evaluate(
+                "() => {"
+                "  var scope = null;"
+                "  for (var it of document.querySelectorAll('.ant-form-item')) {"
+                "    var l = it.querySelector('.ant-form-item-label');"
+                "    if (l && l.innerText && l.innerText.indexOf('主要照片') >= 0) { scope = it.querySelector('.ant-upload-list'); break; }"
+                "  }"
+                "  if (!scope) scope = document.querySelector('.ant-upload-list');"
+                "  if (!scope) return 'no-scope';"
+                "  var del = scope.querySelectorAll('[class*=delete], [aria-label=delete], .anticon-delete');"
+                "  var n = 0;"
+                "  for (var b of del) { var btn = b.closest('button') || b.parentElement; if (btn) { btn.click(); n++; } }"
+                "  return 'deleted:' + n;"
+                "}")
+            print(f'    Delete scope: {del_res}')
             time.sleep(1)
-            # Upload photo
-            result = self.page.evaluate('async (u) => {' +
-                'try {' +
-                '  var r = await fetch(u);' +
-                '  if (!r.ok) return "fetch fail:" + r.status;' +
-                '  var b = await r.blob();' +
-                '  var f = new File([b], "photo.jpg", {type: b.type || "image/jpeg"});' +
-                '  var fi = document.querySelectorAll("input[type=\\"file\\"]");' +
-                '  if (!fi || !fi[0]) return "no input";' +
-                '  var dt = new DataTransfer();' +
-                '  dt.items.add(f);' +
-                '  fi[0].files = dt.files;' +
-                '  fi[0].dispatchEvent(new Event("change", {bubbles: true}));' +
-                '  return "ok:" + f.size;' +
-                '} catch(e) { return "err:" + e.message; }' +
-            '}', photo_url)
+            # Upload photo — SCOPE: 主要照片 (main photo) file input ONLY
+            result = self.page.evaluate(
+                "async (u) => {"
+                "  try {"
+                "    var scope = null;"
+                "    for (var it of document.querySelectorAll('.ant-form-item')) {"
+                "      var l = it.querySelector('.ant-form-item-label');"
+                "      if (l && l.innerText && l.innerText.indexOf('主要照片') >= 0) { scope = it; break; }"
+                "    }"
+                "    var r = await fetch(u);"
+                "    if (!r.ok) return 'fetch fail:' + r.status;"
+                "    var b = await r.blob();"
+                "    var f = new File([b], 'photo.jpg', {type: b.type || 'image/jpeg'});"
+                "    var fi = (scope || document).querySelectorAll('input[type=file]');"
+                "    if (!fi || !fi[0]) return 'no input';"
+                "    var dt = new DataTransfer();"
+                "    dt.items.add(f);"
+                "    fi[0].files = dt.files;"
+                "    fi[0].dispatchEvent(new Event('change', {bubbles: true}));"
+                "    return 'ok:' + f.size;"
+                "  } catch(e) { return 'err:' + e.message; }"
+                "}", photo_url)
             print(f'    Upload: {result}')
             if 'ok:' in result:
                 time.sleep(2)
