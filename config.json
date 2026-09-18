@@ -1,4 +1,19 @@
 {
-  "skus": {},
-  "last_updated": "2026-09-18T16:54:02.653337+08:00"
+  "skus": {
+    "H7304001_S_SHY-CHI0006": {
+      "product_name": "少爺滴雞精 (常溫版) 6包裝",
+      "store_id": "H7304001",
+      "current_phase": -1,
+      "status": "pending",
+      "phases": [
+        {
+          "time": "2026-10-18T23:55:00",
+          "photo_url": "https://lh3.googleusercontent.com/d/1v_VfWS-cD1Uux29C6_P6OaXs5huqaxIG",
+          "label": "🖼️ 換圖"
+        }
+      ],
+      "last_updated": ""
+    }
+  },
+  "last_updated": "2026-09-18T17:04:18.774923+08:00"
 }
