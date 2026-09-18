@@ -215,6 +215,38 @@
       "status": "success",
       "reason": "",
       "time": "2026-09-13T22:26:21.525081"
+    },
+    {
+      "sku": "H7304001_S_SHY-CHI0006",
+      "label": "\ud83d\uddbc\ufe0f \u63db\u5716",
+      "photo": "https://lh3.googleusercontent.com/d/1v_VfWS-cD1Uux29C6_P6OaXs5huqaxIG",
+      "status": "success",
+      "reason": "",
+      "time": "2026-09-18T23:56:53.590100"
+    },
+    {
+      "sku": "H8976001_S_3401345935571",
+      "label": "\ud83d\uddbc\ufe0f \u63db\u5716",
+      "photo": "https://lh3.googleusercontent.com/d/1qmI8_hhHcXVwMR1s6LBwdiy1V7xdBToS",
+      "status": "success",
+      "reason": "",
+      "time": "2026-09-18T23:56:53.590100"
+    },
+    {
+      "sku": "H5550001_S_TRO62101",
+      "label": "\ud83d\uddbc\ufe0f \u63db\u5716",
+      "photo": "https://lh3.googleusercontent.com/d/1EsX7fB6_Lm-OU15JOjusex7GgQqzteyH",
+      "status": "success",
+      "reason": "",
+      "time": "2026-09-18T23:56:53.590100"
+    },
+    {
+      "sku": "H5550001_S_TRO31721",
+      "label": "\ud83d\uddbc\ufe0f \u63db\u5716",
+      "photo": "https://lh3.googleusercontent.com/d/1vhg_0dWnXVyehcmaRP3n2sZokOMnuWlV",
+      "status": "success",
+      "reason": "",
+      "time": "2026-09-18T23:56:53.590100"
     }
   ]
 }
