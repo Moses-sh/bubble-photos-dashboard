@@ -31,20 +31,33 @@
       "fail_count": 0
     },
     "H5550001_S_TRO31721": {
-      "product_name": "Jamieson 特強長效天然維他命 C (1000毫克) 100粒 (平行進口)",
+      "product_name": "Jamieson 特強長效天然維他命 C (1000毫克) 100粒 (包裝隨機提供) [平行進口]",
       "store_id": "H5550001",
-      "current_phase": 0,
-      "status": "completed",
+      "current_phase": -1,
+      "status": "pending",
       "phases": [
         {
-          "time": "2026-09-18T23:55:00",
-          "photo_url": "https://lh3.googleusercontent.com/d/1vhg_0dWnXVyehcmaRP3n2sZokOMnuWlV",
+          "time": "2026-09-26T00:00:00",
+          "photo_url": "https://lh3.googleusercontent.com/d/18V1jDIrOme52odnWRb_N791AtgBy6X_u",
           "label": "🖼️ 換圖"
         }
       ],
-      "last_updated": "2026-09-18T23:56:53.590100",
-      "fail_count": 0
+      "last_updated": ""
+    },
+    "H5550001_S_TRO62101": {
+      "product_name": "樂加欣 NMN 嶄新增強配方 300毫克 抗衰老保健品 90粒 (包裝隨機提供) [平行進口]",
+      "store_id": "H5550001",
+      "current_phase": -1,
+      "status": "pending",
+      "phases": [
+        {
+          "time": "2026-09-26T00:00:00",
+          "photo_url": "https://lh3.googleusercontent.com/d/1kOiN7wGJqMct_vt1ytwrSg4wyviD1Sjj",
+          "label": "🖼️ 換圖"
+        }
+      ],
+      "last_updated": ""
     }
   },
-  "last_updated": "2026-09-18T17:54:25.202375+08:00"
+  "last_updated": "2026-09-23T11:17:25.161942+08:00"
 }
