@@ -22,12 +22,13 @@
       "status": "pending",
       "phases": [
         {
-          "time": "2026-09-26T00:00:00",
+          "time": "2026-09-28T00:00:00",
           "photo_url": "https://lh3.googleusercontent.com/d/18V1jDIrOme52odnWRb_N791AtgBy6X_u",
           "label": "🖼️ 換圖"
         }
       ],
-      "last_updated": ""
+      "last_updated": "",
+      "fail_count": 0
     },
     "H5550001_S_TRO62101": {
       "product_name": "樂加欣 NMN 嶄新增強配方 300毫克 抗衰老保健品 90粒 (包裝隨機提供) [平行進口]",
@@ -36,12 +37,13 @@
       "status": "pending",
       "phases": [
         {
-          "time": "2026-09-26T00:00:00",
+          "time": "2026-09-28T00:00:00",
           "photo_url": "https://lh3.googleusercontent.com/d/1kOiN7wGJqMct_vt1ytwrSg4wyviD1Sjj",
           "label": "🖼️ 換圖"
         }
       ],
-      "last_updated": ""
+      "last_updated": "",
+      "fail_count": 0
     },
     "H8976001_S_4901872837144": {
       "product_name": "資生堂 fino 高效滲透護髮膜 紅色 230g（版本隨機發）[平行進口]",
@@ -58,5 +60,5 @@
       "last_updated": ""
     }
   },
-  "last_updated": "2026-09-24T15:23:44.004889+08:00"
+  "last_updated": "2026-09-24T16:13:20.192699+08:00"
 }
