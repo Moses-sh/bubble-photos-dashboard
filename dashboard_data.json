@@ -247,6 +247,22 @@
       "status": "success",
       "reason": "",
       "time": "2026-09-18T23:56:53.590100"
+    },
+    {
+      "sku": "H5550001_S_TRO31721",
+      "label": "\ud83d\uddbc\ufe0f \u63db\u5716",
+      "photo": "https://lh3.googleusercontent.com/d/18V1jDIrOme52odnWRb_N791AtgBy6X_u",
+      "status": "success",
+      "reason": "",
+      "time": "2026-09-28T00:00:30.695890"
+    },
+    {
+      "sku": "H5550001_S_TRO62101",
+      "label": "\ud83d\uddbc\ufe0f \u63db\u5716",
+      "photo": "https://lh3.googleusercontent.com/d/1kOiN7wGJqMct_vt1ytwrSg4wyviD1Sjj",
+      "status": "success",
+      "reason": "",
+      "time": "2026-09-28T00:00:30.695890"
     }
   ]
 }
