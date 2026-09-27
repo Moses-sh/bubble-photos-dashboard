@@ -1,7 +1,7 @@
 {
   "skus": {
     "H8976001_S_3401345935571": {
-      "product_name": "Bioderma 貝德瑪 深層卸妝潔膚水 500ml 紅蓋 (平行進口版)",
+      "product_name": "Bioderma \u8c9d\u5fb7\u746a \u6df1\u5c64\u5378\u599d\u6f54\u819a\u6c34 500ml \u7d05\u84cb (\u5e73\u884c\u9032\u53e3\u7248)",
       "store_id": "H8976001",
       "current_phase": 0,
       "status": "completed",
@@ -9,44 +9,44 @@
         {
           "time": "2026-09-18T23:55:00",
           "photo_url": "https://lh3.googleusercontent.com/d/1qmI8_hhHcXVwMR1s6LBwdiy1V7xdBToS",
-          "label": "🖼️ 換圖"
+          "label": "\ud83d\uddbc\ufe0f \u63db\u5716"
         }
       ],
       "last_updated": "2026-09-18T23:56:53.590100",
       "fail_count": 0
     },
     "H5550001_S_TRO31721": {
-      "product_name": "Jamieson 特強長效天然維他命 C (1000毫克) 100粒 (包裝隨機提供) [平行進口]",
+      "product_name": "Jamieson \u7279\u5f37\u9577\u6548\u5929\u7136\u7dad\u4ed6\u547d C (1000\u6beb\u514b) 100\u7c92 (\u5305\u88dd\u96a8\u6a5f\u63d0\u4f9b) [\u5e73\u884c\u9032\u53e3]",
       "store_id": "H5550001",
-      "current_phase": -1,
-      "status": "pending",
+      "current_phase": 0,
+      "status": "completed",
       "phases": [
         {
           "time": "2026-09-28T00:00:00",
           "photo_url": "https://lh3.googleusercontent.com/d/18V1jDIrOme52odnWRb_N791AtgBy6X_u",
-          "label": "🖼️ 換圖"
+          "label": "\ud83d\uddbc\ufe0f \u63db\u5716"
         }
       ],
-      "last_updated": "",
+      "last_updated": "2026-09-28T00:00:30.695890",
       "fail_count": 0
     },
     "H5550001_S_TRO62101": {
-      "product_name": "樂加欣 NMN 嶄新增強配方 300毫克 抗衰老保健品 90粒 (包裝隨機提供) [平行進口]",
+      "product_name": "\u6a02\u52a0\u6b23 NMN \u5d84\u65b0\u589e\u5f37\u914d\u65b9 300\u6beb\u514b \u6297\u8870\u8001\u4fdd\u5065\u54c1 90\u7c92 (\u5305\u88dd\u96a8\u6a5f\u63d0\u4f9b) [\u5e73\u884c\u9032\u53e3]",
       "store_id": "H5550001",
-      "current_phase": -1,
-      "status": "pending",
+      "current_phase": 0,
+      "status": "completed",
       "phases": [
         {
           "time": "2026-09-28T00:00:00",
           "photo_url": "https://lh3.googleusercontent.com/d/1kOiN7wGJqMct_vt1ytwrSg4wyviD1Sjj",
-          "label": "🖼️ 換圖"
+          "label": "\ud83d\uddbc\ufe0f \u63db\u5716"
         }
       ],
-      "last_updated": "",
+      "last_updated": "2026-09-28T00:00:30.695890",
       "fail_count": 0
     },
     "H8976001_S_4901872837144": {
-      "product_name": "資生堂 fino 高效滲透護髮膜 紅色 230g（版本隨機發）[平行進口]",
+      "product_name": "\u8cc7\u751f\u5802 fino \u9ad8\u6548\u6ef2\u900f\u8b77\u9aee\u819c \u7d05\u8272 230g\uff08\u7248\u672c\u96a8\u6a5f\u767c\uff09[\u5e73\u884c\u9032\u53e3]",
       "store_id": "H8976001",
       "current_phase": -1,
       "status": "pending",
@@ -54,7 +54,7 @@
         {
           "time": "2026-10-05T00:00:00",
           "photo_url": "https://lh3.googleusercontent.com/d/15HF1ZGnEK4bS997Pqo6djLY31qQA91FU",
-          "label": "🖼️ 換圖"
+          "label": "\ud83d\uddbc\ufe0f \u63db\u5716"
         }
       ],
       "last_updated": ""
