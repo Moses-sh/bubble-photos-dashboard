@@ -263,6 +263,14 @@
       "status": "success",
       "reason": "",
       "time": "2026-09-28T00:00:30.695890"
+    },
+    {
+      "sku": "H8976001_S_4901872837144",
+      "label": "\ud83d\uddbc\ufe0f \u63db\u5716",
+      "photo": "https://lh3.googleusercontent.com/d/15HF1ZGnEK4bS997Pqo6djLY31qQA91FU",
+      "status": "failed",
+      "reason": "Photo verify failed: 0 photos after reload",
+      "time": "2026-10-05T00:02:57.084787"
     }
   ]
 }
