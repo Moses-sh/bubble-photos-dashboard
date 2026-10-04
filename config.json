@@ -49,7 +49,7 @@
       "product_name": "\u8cc7\u751f\u5802 fino \u9ad8\u6548\u6ef2\u900f\u8b77\u9aee\u819c \u7d05\u8272 230g\uff08\u7248\u672c\u96a8\u6a5f\u767c\uff09[\u5e73\u884c\u9032\u53e3]",
       "store_id": "H8976001",
       "current_phase": -1,
-      "status": "pending",
+      "status": "failed",
       "phases": [
         {
           "time": "2026-10-05T00:00:00",
@@ -57,7 +57,9 @@
           "label": "\ud83d\uddbc\ufe0f \u63db\u5716"
         }
       ],
-      "last_updated": ""
+      "last_updated": "",
+      "_next_phase": 0,
+      "fail_count": 1
     }
   },
   "last_updated": "2026-09-24T16:13:20.192699+08:00"
